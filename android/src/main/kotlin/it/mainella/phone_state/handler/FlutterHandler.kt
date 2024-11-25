@@ -25,8 +25,7 @@ class FlutterHandler(binding: FlutterPlugin.FlutterPluginBinding) {
                         super.onReceive(context, intent)
                         events?.success(
                             mapOf(
-                                "status" to status.name,
-                                "phoneNumber" to phoneNumber
+                                "status" to status.name
                             )
                         )
                     }
@@ -37,17 +36,17 @@ class FlutterHandler(binding: FlutterPlugin.FlutterPluginBinding) {
                     Manifest.permission.READ_PHONE_STATE
                 ) == PackageManager.PERMISSION_GRANTED
 
-                val hasCallLogPermission = ContextCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.READ_CALL_LOG
-                ) == PackageManager.PERMISSION_GRANTED
+                // val hasCallLogPermission = ContextCompat.checkSelfPermission(
+                //     context,
+                //     Manifest.permission.READ_CALL_LOG
+                // ) == PackageManager.PERMISSION_GRANTED
 
-                if (hasPhoneStatePermission && hasCallLogPermission) {
+                if (hasPhoneStatePermission) {
                     receiver.instance(context)
                     events?.success(
                         mapOf(
-                            "status" to receiver.status.name,
-                            "phoneNumber" to receiver.phoneNumber
+                            "status" to receiver.status.name
+                            // "phoneNumber" to receiver.phoneNumber
                         )
                     )
                 }
