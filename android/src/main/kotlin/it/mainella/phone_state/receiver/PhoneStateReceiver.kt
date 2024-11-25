@@ -8,7 +8,6 @@ import it.mainella.phone_state.utils.PhoneStateStatus
 
 open class PhoneStateReceiver : BroadcastReceiver() {
     var status: PhoneStateStatus = PhoneStateStatus.NOTHING
-    var phoneNumber: String? = null
 
     fun instance(context: Context) {
         val telephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
@@ -19,7 +18,6 @@ open class PhoneStateReceiver : BroadcastReceiver() {
             TelephonyManager.CALL_STATE_IDLE -> PhoneStateStatus.CALL_ENDED
             else -> PhoneStateStatus.NOTHING
         }
-        phoneNumber = null
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -31,7 +29,6 @@ open class PhoneStateReceiver : BroadcastReceiver() {
                 else -> PhoneStateStatus.NOTHING
             }
 
-            phoneNumber = intent?.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
         } catch (e: Exception) {
             e.printStackTrace()
         }
